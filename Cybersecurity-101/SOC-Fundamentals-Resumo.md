@@ -124,7 +124,7 @@ A Task 6 apresentou um cenário prático onde, como Analista Nível 1, recebi um
   * **Resposta:** `Nessus` 
 * **Why:** Reason for the activity? Intended/Malicious
   * **Resposta:** `Intended`
-  * **Observação:** A nota da sala informava que a equipe de avaliação de vulnerabilidades estava realizando um scan a partir do IP `10.0.0.8`. O nome do host de origem "Nessus" possui esse IP.
+  * **Observação:** A nota da sala informava que a equipe de avaliação de vulnerabilidades estava realizando um scan a partir do IP `10.0.0.8`. O host com nome "Nessus" possui esse IP.
 * **What is the flag found after closing the alert?**
   * **Resposta:** `THM{000_INTRO_TO_SOC}`
 
