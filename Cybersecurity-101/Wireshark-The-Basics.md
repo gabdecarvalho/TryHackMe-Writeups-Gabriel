@@ -151,7 +151,7 @@ response, what is the total number of artists?
 
 ---
 
-## 5. Desafios Enfrentados (Opcional)
+## 5. Desafios Enfrentados
 
 * Inicialmente, tive dificuldade em encontrar a opção de exportar objetos HTTP, mas explorar os menus 'File' me levou à funcionalidade correta.
 * Diferenciar entre filtros de captura e filtros de visualização exigiu um pouco de prática para internalizar.
