@@ -13,12 +13,11 @@ Bem-vindo ao meu repositório de write-ups! Aqui eu documento minha jornada de a
 * [XSS (Cross-Site Scripting)](Web-fundamentals/xss.md)
 
 ### Cybersecurity 101
-* [Linux Fundamentals - Resumo](Cybersecurity-101/Linux-Fundamentals.md)
 * [Nmap: The Basics - Análise de Scan](Cybersecurity-101/Nmap-The-Basics.md)
 * [Wireshark: The Basics - Análise de Tráfego](Cybersecurity-101/Wireshark-The-Basics.md)
-* [Blue - Exploração MS17-010](Cybersecurity-101/Blue-Exploitation.md)
-* [SOC Fundamentals - Conceitos Chave](Cybersecurity-101/SOC-Fundamentals-Resumo.md)
-* [Introdução ao SIEM](Cybersecurity-101/Introduction-To-SIEM.md)
+* [Command Injection](Cybersecurity-101/command-injection.md)
+* [Security Misconfiguration](Cybersecurity-101/security-misconfig.md)
+* [Vulnerable and Outdated Components](Cybersecurity-101/vulnerable-outdated.md)
 
 
 ---
