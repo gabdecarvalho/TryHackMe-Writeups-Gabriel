@@ -6,6 +6,11 @@ Bem-vindo ao meu repositório de write-ups! Aqui eu documento minha jornada de a
 
 ### Web Fundamentals
 * [HTTP in Detail](Web-fundamentals/http-in-detail.md)
+* [Authentication Bypass](Web-fundamentals/authentication-bypass.md)
+* [IDOR (Insecure Direct Object Reference)](Web-fundamentals/idor.md)
+* [SQL Injection](Web-fundamentals/sql-injection.md)
+* [SSRF (Server-side request forgery)](Web-fundamentals/ssrf.md)
+* [XSS (Cross-Site Scripting)](Web-fundamentals/xss.md)
 
 ### Cybersecurity 101
 * [Linux Fundamentals - Resumo](Cybersecurity-101/Linux-Fundamentals.md)
