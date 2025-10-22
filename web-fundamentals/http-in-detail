@@ -1,0 +1,204 @@
+# Write-up: TryHackMe — HTTP in Detail
+
+**Plataforma:** TryHackMe  
+**Sala:** HTTP in Detail  
+**Duração aproximada:** 30–60 min
+
+---
+
+## 1. Introdução e objetivos da sala
+
+A sala **HTTP in Detail** apresenta os fundamentos do protocolo HTTP/HTTPS e seu uso prático: como são feitas requisições e respostas, a decomposição de URLs, métodos HTTP, códigos de status, headers, cookies e como realizar requisições (navegador / curl). O objetivo é entregar uma base prática para desenvolver, debugar e testar aplicações web — conhecimento essencial tanto para desenvolvedores backend quanto para profissionais de segurança.
+
+Objetivos específicos:
+- Entender o que é HTTP e HTTPS e por que HTTPS importa.
+- Saber ler e montar requisições e respostas HTTP.
+- Conhecer métodos comuns (GET, POST, PUT, DELETE) e códigos de status.
+- Trabalhar com headers e cookies.
+- Fazer requisições práticas e interpretar respostas.
+
+---
+
+## 2. Ferramentas usadas
+
+* Navegador (DevTools — abas **Network** e **Application**) — inspecionar requests, headers e cookies.  
+* `curl` (terminal) — fazer requisições HTTP/HTTPS rapidamente.  
+* Emulador/mini-lab do TryHackMe (site da sala) — exercícios interativos e flags.
+
+---
+
+## 3. Conceitos chave
+
+### HTTP / HTTPS
+- **HTTP** = *HyperText Transfer Protocol* — protocolo de comunicação para entrega de recursos (HTML, imagens, JSON, etc.).  
+- **HTTPS** = HTTP + TLS — adiciona criptografia e autenticação do servidor (certificados), protegendo confidencialidade e integridade.
+
+### URL (Uniform Resource Locator)
+Formato geral: `scheme://user:pass@host:port/path?query#fragment`  
+Componentes importantes: `scheme` (http/https), `host` (domínio/IP), `port` (padrão 80/443), `path`, `query string` (parâmetros), `fragment` (âncora local).
+
+### Estrutura de uma requisição HTTP
+```
+GET /path HTTP/1.1
+Host: example.com
+User-Agent: ...
+Referer: ...
+[blank line]
+[body opcional]
+```
+- Linha inicial: `METHOD PATH VERSION`  
+- Headers: pares `Nome: valor`  
+- Corpo (body): usado em POST/PUT etc.  
+- Requisição termina com uma linha em branco.
+
+### Estrutura de uma resposta HTTP
+```
+HTTP/1.1 200 OK
+Server: nginx/1.15.8
+Content-Type: text/html
+Content-Length: 98
+
+<html>...</html>
+```
+- Linha inicial: `VERSION STATUS_CODE REASON`  
+- Headers: metadata (Content-Type, Content-Length, Set-Cookie, ...)  
+- Corpo: conteúdo (HTML, JSON, imagem...).
+
+### Métodos HTTP (uso comum)
+- `GET` — recuperar recurso (sem alterar estado).  
+- `POST` — enviar dados / criar recurso.  
+- `PUT` — atualizar/ substituir recurso.  
+- `DELETE` — remover recurso.
+
+### Códigos de status (resumo)
+- `1xx` Informativos  
+- `2xx` Sucesso (200 OK, 201 Created)  
+- `3xx` Redirecionamento (301, 302)  
+- `4xx` Erros do cliente (400, 401, 403, 404, 405)  
+- `5xx` Erros do servidor (500, 503)
+
+### Headers relevantes
+- Request: `Host`, `User-Agent`, `Referer`, `Content-Length`, `Accept-Encoding`, `Cookie`.  
+- Response: `Content-Type`, `Content-Length`, `Set-Cookie`, `Cache-Control`, `Server`.
+
+### Cookies
+- Enviados pelo servidor via `Set-Cookie`. O navegador passa o cookie nas próximas requisições automaticamente. Úteis para sessão/autenticação porque HTTP é *stateless*.
+
+---
+
+## 4. Walkthrough das Tasks (resolução prática)
+
+> Aqui explico passo a passo o que fiz nas tasks e mostro as respostas/flags.
+
+### Task 1 — What is HTTP(S)?
+- **Resumo:** Definição de HTTP e HTTPS — HTTPS adiciona criptografia (TLS) e validação via certificados.  
+- **Perguntas/respostas:**
+  - *What does HTTP stand for?* → **HyperText Transfer Protocol**  
+  - *What does the S in HTTPS stand for?* → **secure**  
+- **Lab:** Identifiquei um certificado inválido na página de demonstração. **Flag:** `THM{INVALID_HTTP_CERT}`
+
+---
+
+### Task 2 — Requests and Responses
+- **Resumo:** Decomposição de URL; como montar uma requisição (linha inicial + headers + blank line + body) e interpretar uma resposta (status line + headers + body).  
+- **Perguntas/respostas:**
+  - *What HTTP protocol is being used in the above example?* → **HTTP/1.1**  
+  - *What response header tells the browser how much data to expect?* → **Content-Length**
+
+---
+
+### Task 3 — HTTP Methods
+- **Resumo:** Uso de GET/POST/PUT/DELETE e intenção de cada método.  
+- **Perguntas/respostas:**
+  - *Create new user account?* → **POST**  
+  - *Update email address?* → **PUT**  
+  - *Remove uploaded picture?* → **DELETE**  
+  - *View a news article?* → **GET**
+
+---
+
+### Task 4 — HTTP Status Codes
+- **Resumo:** Entendimento de ranges e códigos comuns.  
+- **Perguntas/respostas:**
+  - *Código ao criar novo recurso?* → **201**  
+  - *Código se página não existe?* → **404**  
+  - *Código quando servidor não consegue acessar DB (app crash)?* → **503**  
+  - *Código ao tentar editar perfil sem logar?* → **401**
+
+---
+
+### Task 5 — Headers
+- **Resumo:** Principais headers de request/response e utilidade prática (Host para virtual hosts; Content-Type para processar corpo).  
+- **Perguntas/respostas:**
+  - *Qual header diz qual navegador?* → **User-Agent**  
+  - *Qual header diz o tipo de dado retornado?* → **Content-Type**  
+  - *Qual header diz qual site está sendo requisitado?* → **Host**
+
+---
+
+### Task 6 — Cookies
+- **Resumo:** Como cookies são criados (`Set-Cookie`) e enviados em requisições subsequentes; uso para sessão.  
+- **Pergunta/resposta:**
+  - *Which header is used to save cookies to your computer?* → **Set-Cookie**
+
+---
+
+### Task 7 — Making Requests (prática)
+- Usei o emulador HTTP do lab para fazer requests e obter flags:
+  - `GET /room` → **THM{YOU'RE_IN_THE_ROOM}**  
+  - `GET /blog?id=1` → **THM{YOU_FOUND_THE_BLOG}**  
+  - `DELETE /user/1` → **THM{USER_IS_DELETED}**  
+  - `PUT /user/2` (body `username=admin`) → **THM{USER_HAS_UPDATED}**  
+  - `POST /login` (`username=thm&password=letmein`) → **THM{HTTP_REQUEST_MASTER}**
+
+---
+
+## 5. Comandos e exemplos úteis
+
+### `curl` — exemplos práticos
+- GET:
+```bash
+curl -i http://example.com/room
+```
+- GET com query:
+```bash
+curl -i 'http://example.com/blog?id=1'
+```
+- POST form-encoded:
+```bash
+curl -i -X POST -d 'username=thm&password=letmein' http://example.com/login
+```
+- PUT JSON:
+```bash
+curl -i -X PUT -H "Content-Type: application/json" -d '{"username":"admin"}' http://example.com/user/2
+```
+- DELETE:
+```bash
+curl -i -X DELETE http://example.com/user/1
+```
+
+### Inspecionar certificados (openssl)
+```bash
+echo | openssl s_client -connect example.com:443 -servername example.com 2>/dev/null | openssl x509 -noout -text
+```
+
+### Ver cookies/headers no navegador
+- DevTools → **Network** → selecionar request → **Headers** / **Cookies**  
+- DevTools → **Application** → Cookies para visualizar todos.
+
+---
+
+## 6. Lições aprendidas e aplicação prática
+
+* Compreender HTTP dá poder para: debugar APIs, identificar problemas de integração, escrever testes e interpretar logs/alertas em um SOC.  
+* Saber quando usar cada método e como interpretar códigos de status ajuda a entender intenções e efeitos das requisições (ex.: diferenciar 401 vs 403).  
+* Headers e cookies carregam estado e meta-informação críticos — inspecioná-los é frequentemente o primeiro passo no troubleshooting e pentesting.  
+* HTTPS e validação de certificados são essenciais em produção — ignorar erros de certificado pode levar a MITM e vazamento de dados.
+
+---
+
+## 7. Conclusão
+
+A sala **HTTP in Detail** fornece a base necessária para qualquer trabalho com aplicações web: tanto para desenvolvimento (entender contratos HTTP/REST, conteúdo e caching) quanto para segurança (manipular headers/cookies, identificar potenciais falhas de autenticação ou de configuração). Após completar essa sala você deve estar confortável em inspecionar requests/responses, reproduzir problemas com `curl` e usar o DevTools do navegador para analisar comportamento de aplicações web.
+
+---
