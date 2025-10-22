@@ -4,6 +4,9 @@ Bem-vindo ao meu repositório de write-ups! Aqui eu documento minha jornada de a
 
 ## Trilhas TryHackMe
 
+### Web Fundamentals
+* [HTTP in Detail](Web-fundamentals/http-in-detail.md)
+
 ### Cybersecurity 101
 * [Linux Fundamentals - Resumo](Cybersecurity-101/Linux-Fundamentals.md)
 * [Nmap: The Basics - Análise de Scan](Cybersecurity-101/Nmap-The-Basics.md)
@@ -12,11 +15,6 @@ Bem-vindo ao meu repositório de write-ups! Aqui eu documento minha jornada de a
 * [SOC Fundamentals - Conceitos Chave](Cybersecurity-101/SOC-Fundamentals-Resumo.md)
 * [Introdução ao SIEM](Cybersecurity-101/Introduction-To-SIEM.md)
 
-### SOC Level 1 Path
-* [Em breve]
-
-## Outros Desafios / Estudos
-* [Em breve]
 
 ---
 Confira meu perfil principal no GitHub: [gabdecarvalho](https://github.com/gabdecarvalho)
